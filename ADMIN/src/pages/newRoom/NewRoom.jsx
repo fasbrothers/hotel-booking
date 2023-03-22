@@ -35,7 +35,7 @@ const NewRoom = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Room</h1>
+          <h1>Create New Room</h1>
         </div>
         <div className="bottom">
           <div className="right">
@@ -46,7 +46,6 @@ const NewRoom = () => {
                   <input
                     id={input.id}
                     type={input.type}
-                    placeholder={input.placeholder}
                     onChange={handleChange}
                   />
                 </div>
@@ -55,7 +54,6 @@ const NewRoom = () => {
                 <label>Rooms</label>
                 <textarea
                   onChange={(e) => setRooms(e.target.value)}
-                  placeholder="give comma between room numbers."
                 />
               </div>
               <div className="formInput">
@@ -72,7 +70,7 @@ const NewRoom = () => {
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Send</button>
+            <button onClick={handleClick}>Create</button>
             </form>
           </div>
         </div>

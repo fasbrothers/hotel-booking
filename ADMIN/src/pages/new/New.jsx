@@ -1,7 +1,6 @@
 import "./new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import axios from "axios";
 
@@ -37,7 +36,6 @@ const New = ({ inputs, title }) => {
     }
   };
 
-  console.log(info);
   return (
     <div className="new">
       <Sidebar />
@@ -60,9 +58,7 @@ const New = ({ inputs, title }) => {
           <div className="right">
             <form>
               <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
+                <label htmlFor="file">Add Image</label>
                 <input
                   type="file"
                   id="file"
@@ -77,12 +73,11 @@ const New = ({ inputs, title }) => {
                   <input
                     onChange={handleChange}
                     type={input.type}
-                    placeholder={input.placeholder}
                     id={input.id}
                   />
                 </div>
               ))}
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>Create</button>
             </form>
           </div>
         </div>

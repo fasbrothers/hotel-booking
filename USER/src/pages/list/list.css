@@ -13,9 +13,9 @@
 
 .listSearch {
   flex: 1;
-  background-color: #febb02;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 20px 30px;
+  border-radius: 30px;
+  border: 1px solid #ccc;
   position: sticky;
   top: 10px;
   height: max-content;
@@ -23,7 +23,7 @@
 
 .lsTitle{
   font-size: 20px;
-  color: #555;
+  color: black;
   margin-bottom: 10px;
 }
 
@@ -35,12 +35,11 @@
 }
 
 .lsItem>label{
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .lsItem>input{
   height: 30px;
-  border: none;
   padding: 5px;
 }
 .lsItem>span{
@@ -61,7 +60,7 @@
   justify-content: space-between;
   margin-bottom: 10px;
   color: #555;
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .lsOptionInput{
@@ -70,10 +69,9 @@
 
 .listSearch>button{
   padding: 10px;
-  background-color: #0071c2;
+  background-color: black;
   color: white;
   border: none;
-  width: 100%;
   font-weight: 500;
   cursor: pointer;
 }

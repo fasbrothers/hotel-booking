@@ -9,12 +9,18 @@ const Navbar = () => {
     <div className="navbar">
       <div className="navContainer">
         <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
-          <span className="logo">Booking</span>
+          <span className="logo">Travel.uz</span>
         </Link>
-        {user ? user.username : (
+        {user ? (
+          <p onClick={() => localStorage.removeItem("user")}>{user.username}</p>
+        ) : (
           <div className="navItems">
-            <button className="navButton">Register</button>
-            <button className="navButton">Login</button>
+            <Link to="/register">
+              <button className="navButton">Register</button>
+            </Link>
+            <Link to="/login">
+              <button className="navButton">Login</button>
+            </Link>
           </div>
         )}
       </div>

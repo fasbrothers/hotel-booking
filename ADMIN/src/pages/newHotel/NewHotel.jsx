@@ -1,11 +1,12 @@
 import "./newHotel.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import { useState } from "react";
 import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import { redirect } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const NewHotel = () => {
   const [files, setFiles] = useState("");
@@ -25,8 +26,8 @@ const NewHotel = () => {
     );
     setRooms(value);
   };
-  
-  console.log(files)
+
+  console.log(files);
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -53,7 +54,12 @@ const NewHotel = () => {
       };
 
       await axios.post("/hotels", newhotel);
-    } catch (err) {console.log(err)}
+      window.location.replace("/hotels");
+    } catch (err) {
+      toast.error("something is wrong", {
+        position: toast.POSITION.BOTTOM_RIGHT,
+      });
+    }
   };
   return (
     <div className="new">
@@ -61,7 +67,7 @@ const NewHotel = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Add New Product</h1>
+          <h1>Create New Hotel</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -77,9 +83,7 @@ const NewHotel = () => {
           <div className="right">
             <form>
               <div className="formInput">
-                <label htmlFor="file">
-                  Image: <DriveFolderUploadOutlinedIcon className="icon" />
-                </label>
+                <label htmlFor="file">Add Image</label>
                 <input
                   type="file"
                   id="file"
@@ -96,7 +100,6 @@ const NewHotel = () => {
                     id={input.id}
                     onChange={handleChange}
                     type={input.type}
-                    placeholder={input.placeholder}
                   />
                 </div>
               ))}
@@ -108,7 +111,7 @@ const NewHotel = () => {
                 </select>
               </div>
               <div className="selectRooms">
-                <label>Rooms</label>
+                <p>Rooms</p>
                 <select id="rooms" multiple onChange={handleSelect}>
                   {loading
                     ? "loading"
@@ -120,11 +123,12 @@ const NewHotel = () => {
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Send</button>
+              <button onClick={handleClick}>Create</button>
             </form>
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

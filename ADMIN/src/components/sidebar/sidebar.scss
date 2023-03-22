@@ -1,6 +1,6 @@
 .sidebar {
   flex: 1;
-  border-right: 0.5px solid rgb(230, 227, 227);
+  border-right: 0.5px solid rgb(209, 205, 205);
   min-height: 100vh;
   background-color: white;
 
@@ -8,19 +8,15 @@
     height: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
-
+    padding-left: 10px;
     .logo {
       font-size: 20px;
       font-weight: bold;
-      color: #6439ff;
+      color: #1D64EC;
+      
     }
   }
 
-  hr {
-    height: 0;
-    border: 0.5px solid rgb(230, 227, 227);
-  }
 
   .center {
     padding-left: 10px;
@@ -49,12 +45,12 @@
         }
 
         .icon {
-          font-size: 18px;
-          color: #7451f8;
+          font-size: 22px;
+          color: #1D64EC;
         }
 
         span{
-            font-size: 13px;
+            font-size: 18px;
             font-weight: 600;
             color: #888;
             margin-left: 10px;
@@ -72,7 +68,7 @@
           width: 20px;
           height: 20px;
           border-radius: 5px;
-          border: 1px solid #7451f8;
+          border: 1px solid #1D64EC;
           cursor: pointer;
           margin: 5px;
 

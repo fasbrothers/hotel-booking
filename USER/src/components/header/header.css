@@ -1,6 +1,4 @@
 .header {
-  background-color: #003580;
-  color: white;
   display: flex;
   justify-content: center;
   position: relative;
@@ -9,17 +7,13 @@
 .headerContainer {
   width: 100%;
   max-width: 1024px;
-  margin: 20px 0px 100px 0px;
+  margin: 20px 0;
 }
 
-.headerContainer.listMode {
-  margin: 20px 0px 0px 0px;
-}
 
 .headerList {
   display: flex;
-  gap: 40px;
-  margin-bottom: 50px;
+  gap: 20px;
 }
 
 .headerListItem {
@@ -48,22 +42,20 @@
 }
 
 .headerSearch {
-  height: 30px;
+  height: 40px;
   background-color: white;
-  border: 3px solid #febb02;
+  border: 3px solid #0071c2;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 10px 0px;
-  border-radius: 5px;
-  position: absolute;
-  bottom: -25px;
-  width: 100%;
-  max-width: 1024px;
+  border-radius: 45px;
+  width: 90%;
+  margin: 0px auto;
 }
 
 .headerIcon {
-  color: lightgray;
+  color: black;
 }
 
 .headerSearchItem {
@@ -75,10 +67,15 @@
 .headerSearchInput {
   border: none;
   outline: none;
+  font-size: 16px;
+}
+.headerSearchInput::placeholder{
+  color: black;
+
 }
 
 .headerSearchText {
-  color: lightgray;
+  color: black;
   cursor: pointer;
 }
 
@@ -93,7 +90,7 @@
   position: absolute;
   top: 50px;
   background-color: white;
-  color: gray;
+  color: black;
   border-radius: 5px;
   -webkit-box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
   box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
