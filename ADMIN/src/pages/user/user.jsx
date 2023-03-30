@@ -36,7 +36,7 @@ const User = () => {
         {info && (
           <div className="top">
             <div className="left">
-              <Link to={`/${path}/edit/${pathId}`} className="link">
+              <Link to={`/${path}/edit/${pathId}`} className="editButton">
                 Edit
               </Link>
               <h1 className="title">User information</h1>

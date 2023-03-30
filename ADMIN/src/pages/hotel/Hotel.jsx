@@ -36,7 +36,9 @@ const Hotel = () => {
         {info && (
           <div className="top">
             <div className="left">
-              <div className="editButton">Edit</div>
+              <Link to={`/${path}/edit/${pathId}`} className="editButton">
+                Edit
+              </Link>
               <h1 className="title">Hotel information</h1>
               <div className="item">
                 {/* <img src={info?.photos[0]} alt="" className="itemImg" />   */}
@@ -59,7 +61,8 @@ const Hotel = () => {
                 </div>
               </div>
             </div>
-            <div className="right"></div>
+            <div className="right">
+            </div>
           </div>
         )}
       </div>

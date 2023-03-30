@@ -7,12 +7,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./header.css";
 import { DateRange } from "react-date-range";
 import { useContext, useState } from "react";
-import "react-date-range/dist/styles.css"; // main css file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
-import { AuthContext } from "../../context/AuthContext";
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -33,7 +32,6 @@ const Header = ({ type }) => {
 
   const navigate = useNavigate();
 
-
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -46,6 +44,15 @@ const Header = ({ type }) => {
   const { dispatch } = useContext(SearchContext);
 
   const handleSearch = () => {
+    if (destination === "") {
+      alert("Please enter a destination");
+      return;
+    }
+    if (dates[0].startDate === dates[0].endDate) {
+      alert("Please enter a valid date range");
+      return;
+    }
+
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
   };
@@ -57,8 +64,7 @@ const Header = ({ type }) => {
           type === "list" ? "headerContainer listMode" : "headerContainer"
         }
       >
-        <div className="headerList">
-        </div>
+        <div className="headerList"></div>
         {type !== "list" && (
           <>
             <div className="headerSearch">
@@ -68,7 +74,7 @@ const Header = ({ type }) => {
                   type="text"
                   placeholder="Location"
                   className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value)}
+                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
                 />
               </div>
               <div className="headerSearchItem">

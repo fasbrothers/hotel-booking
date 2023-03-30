@@ -36,51 +36,12 @@ export const userInputs = [
   },
 ];
 
-export const productInputs = [
-  {
-    id: 1,
-    label: "Title",
-    type: "text",
-    placeholder: "Apple Macbook Pro",
-  },
-  {
-    id: 2,
-    label: "Description",
-    type: "text",
-    placeholder: "Description",
-  },
-  {
-    id: 3,
-    label: "Category",
-    type: "text",
-    placeholder: "Computers",
-  },
-  {
-    id: 4,
-    label: "Price",
-    type: "text",
-    placeholder: "100",
-  },
-  {
-    id: 5,
-    label: "Stock",
-    type: "text",
-    placeholder: "in stock",
-  },
-];
-
 export const hotelInputs = [
   {
     id: "name",
     label: "Name",
     type: "text",
     placeholder: "My Hotel",
-  },
-  {
-    id: "type",
-    label: "Type",
-    type: "text",
-    placeholder: "hotel",
   },
   {
     id: "city",
@@ -99,12 +60,6 @@ export const hotelInputs = [
     label: "Distance from City Center",
     type: "text",
     placeholder: "500",
-  },
-  {
-    id: "title",
-    label: "Title",
-    type: "text",
-    placeholder: "The best Hotel",
   },
   {
     id: "desc",

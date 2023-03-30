@@ -11,7 +11,6 @@ import {
 import { useContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
-import { SearchContext } from "../../context/SearchContext";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
 
@@ -21,13 +20,11 @@ const Hotel = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
-
+  const [dates, setDates] = useState(location.state.dates);
+  const [options, setOptions] = useState(location.state.options);
   const { data, loading, error } = useFetch(`/hotels/find/${id}`);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  console.log(data);
-  const { dates, options } = useContext(SearchContext);
 
   const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
   function dayDifference(date1, date2) {
@@ -98,7 +95,7 @@ const Hotel = () => {
           )}
           <div className="hotelWrapper">
             <div className="hotelFlex">
-            <div>
+              <div>
                 <h1 className="hotelTitle">{data.name}</h1>
                 <div className="hotelAddress">
                   <FontAwesomeIcon icon={faLocationDot} />
@@ -115,7 +112,6 @@ const Hotel = () => {
                 </h2>
                 <button onClick={handleClick}>Reserve or Book Now!</button>
               </div>
-              
             </div>
             <div className="hotelImages">
               {data.photos?.map((photo, i) => (

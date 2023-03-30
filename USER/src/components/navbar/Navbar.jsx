@@ -1,9 +1,17 @@
 import "./navbar.css";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
-  const { user } = useContext(AuthContext);
+  const { user, dispatch } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
 
   return (
     <div className="navbar">
@@ -12,7 +20,10 @@ const Navbar = () => {
           <span className="logo">Travel.uz</span>
         </Link>
         {user ? (
-          <p onClick={() => localStorage.removeItem("user")}>{user.username}</p>
+          <div className="navItems">
+            <div>{user.username}</div>
+            <button onClick={handleClick}>Logout</button>
+          </div>
         ) : (
           <div className="navItems">
             <Link to="/register">

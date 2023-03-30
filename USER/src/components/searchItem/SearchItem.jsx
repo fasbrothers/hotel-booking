@@ -1,7 +1,11 @@
-import { Link } from "react-router-dom";
 import "./searchItem.css";
+import { useNavigate } from "react-router-dom";
 
-const SearchItem = ({ item }) => {
+const SearchItem = ({ item, dates, options }) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/hotels/${item._id}`, { state: { dates, options } });
+  };
   return (
     <div className="searchItem">
       <img src={item.photos[0]} alt="" className="siImg" />
@@ -17,9 +21,9 @@ const SearchItem = ({ item }) => {
         )}
         <div className="siDetailTexts">
           <span className="siPrice">${item.cheapestPrice}</span>
-          <Link to={`/hotels/${item._id}`}>
-            <button className="siCheckButton">See availability</button>
-          </Link>
+          <button className="siCheckButton" onClick={handleClick}>
+            See availability
+          </button>
         </div>
       </div>
     </div>

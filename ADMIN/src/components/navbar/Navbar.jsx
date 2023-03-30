@@ -2,9 +2,17 @@ import "./navbar.scss";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const { dispatch: dis, user } = useContext(AuthContext);
+  console.log(user);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    dis({ type: "LOGOUT" });
+  };
 
   return (
     <div className="navbar">
@@ -16,12 +24,8 @@ const Navbar = () => {
               onClick={() => dispatch({ type: "TOGGLE" })}
             />
           </div>
-          <div className="item">
-            <img
-              src="http://res.cloudinary.com/dzttobvqm/image/upload/v1675512992/images/crjdgwdh3quvrn0fifx5.jpg"
-              alt="Img"
-              className="avatar"
-            />
+          <div className="item" onClick={handleClick}>
+            <img src={user.img} alt="img" className="avatar" />
           </div>
         </div>
       </div>

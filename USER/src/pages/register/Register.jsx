@@ -2,12 +2,16 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import "./login.css";
+import "../login/login.css";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
+    country: undefined,
+    city: undefined,
+    phone: undefined,
+    email: undefined,
   });
 
   const { loading, error, dispatch } = useContext(AuthContext);
@@ -18,17 +22,14 @@ const Login = () => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-  async function handleClick(e) {
+  const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });
     try {
-      const res = await axios.post("/auth/login", credentials);
-      dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+      const res = await axios.post("/auth/register", credentials);
       navigate("/");
-    } catch (err) {
-      dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
-    }
-  }
+    } catch (err) {}
+  };
 
   return (
     <div className="login">
@@ -41,14 +42,42 @@ const Login = () => {
           className="lInput"
         />
         <input
+          type="email"
+          placeholder="email"
+          id="email"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
           type="password"
           placeholder="password"
           id="password"
           onChange={handleChange}
           className="lInput"
         />
+        <input
+          type="text"
+          placeholder="country"
+          id="country"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="city"
+          id="city"
+          onChange={handleChange}
+          className="lInput"
+        />
+        <input
+          type="text"
+          placeholder="phone"
+          id="phone"
+          onChange={handleChange}
+          className="lInput"
+        />
         <button onClick={handleClick} className="lButton">
-          Login
+          Register
         </button>
         {error && <span>{error.message}</span>}
       </div>

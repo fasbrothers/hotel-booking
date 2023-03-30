@@ -1,25 +1,28 @@
+import { Link } from "react-router-dom";
 import "./widget.scss";
 
-const Widget = ({ type }) => {
+const Widget = ({ type}) => {
   let data;
-
   switch (type) {
     case "user":
       data = {
         title: "Users",
-        link: "View all users",
+        name: "View all users",
+        link:"/users"
       };
       break;
     case "hotel":
       data = {
         title: "Hotels",
-        link: "View all hotels",
+        name: "View all hotels",
+        link:"/hotels"
       };
       break;
     case "room":
       data = {
         title: "Rooms",
-        link: "View all rooms",
+        name: "View all rooms",
+        link:"/rooms"
       };
       break;
     default:
@@ -30,8 +33,9 @@ const Widget = ({ type }) => {
     <div className="widget">
       <div className="left">
         <span className="title">{data.title}</span>
-        <span className="counter">20</span>
-        <span className="link">{data.link}</span>
+        <Link to={data.link}>
+        <span className="link">{data.name}</span>
+        </Link>
       </div>
     </div>
   );

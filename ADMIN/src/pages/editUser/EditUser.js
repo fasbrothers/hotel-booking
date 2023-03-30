@@ -54,12 +54,12 @@ const EditUser = ({ inputs, title }) => {
         console.log(url);
       }
 
-      const newUser = {
+      const updateUser = {
         ...info,
         img: url,
       };
 
-      await axios.put(`/users/${pathId}`, newUser);
+      await axios.put(`/users/${pathId}`, updateUser);
       // redirect to the users page
       navigate("/users");
     } catch (err) {
@@ -106,7 +106,7 @@ const EditUser = ({ inputs, title }) => {
                     />
                   </div>
                 ))}
-              <button onClick={handleClick}>Create</button>
+              <button onClick={handleClick}>Update</button>
             </form>
           </div>
         </div>

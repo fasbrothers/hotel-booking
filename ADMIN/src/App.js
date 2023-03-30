@@ -1,11 +1,11 @@
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
-import User from "./pages/user/user";
+import User from "./pages/user/User";
 import New from "./pages/new/New";
 import EditUser from "./pages/editUser/EditUser";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { productInputs, userInputs } from "./formSource";
+import { userInputs } from "./formSource";
 import "./style/dark.scss";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
@@ -15,6 +15,8 @@ import NewHotel from "./pages/newHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
 import Hotel from "./pages/hotel/Hotel";
 import Room from "./pages/room/Room";
+import EditHotel from "./pages/editHotel/EditHotel";
+import EditRoom from "./pages/editRoom/EditRoom";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -102,6 +104,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+                path="edit/:productId"
+                element={
+                  <ProtectedRoute>
+                    <EditHotel title="Edit a Hotel" />
+                  </ProtectedRoute>
+                }
+              />
             </Route>
             <Route path="rooms">
               <Route
@@ -125,6 +135,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <NewRoom />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="edit/:productId"
+                element={
+                  <ProtectedRoute>
+                    <EditRoom title="Edit a Room" />
                   </ProtectedRoute>
                 }
               />

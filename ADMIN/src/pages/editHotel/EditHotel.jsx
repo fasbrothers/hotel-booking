@@ -1,22 +1,42 @@
-import "./newHotel.scss";
+import "../newHotel/newHotel.scss";
+
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { hotelInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-const NewHotel = () => {
+const EditHotel = ({ title }) => {
   const [files, setFiles] = useState("");
-  const [info, setInfo] = useState({});
-  const [rooms, setRooms] = useState([]);
-
-  const { data, loading, error } = useFetch("/rooms");
+  const location = useLocation();
+  const path = location.pathname.split("/")[1];
+  const { data } = useFetch(`/${path}`);
   const navigate = useNavigate();
 
+  // find the info with the id
+  const pathId = location.pathname.split("/")[3];
+
+  const [rooms, setRooms] = useState([]);
+  const [list, setList] = useState(data);
+  const [hotel, setHotel] = useState([]);
+  const [info, setInfo] = useState(hotel);
+
+  const { places, loading, error } = useFetch("/rooms");
+
+  useEffect(() => {
+    setList(data);
+    const info = data.find((info) => info._id === pathId);
+    console.log(info);
+    setHotel(info);
+    // clean up
+    return () => {
+      setHotel([]);
+    };
+  }, [data]);
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -30,33 +50,35 @@ const NewHotel = () => {
     setRooms(value);
   };
 
-  console.log(files);
 
   const handleClick = async (e) => {
     e.preventDefault();
+    let list;
     try {
-      const list = await Promise.all(
-        Object.values(files).map(async (file) => {
-          const data = new FormData();
-          data.append("file", file);
-          data.append("upload_preset", "upload");
-          const uploadRes = await axios.post(
-            "https://api.cloudinary.com/v1_1/dzttobvqm/image/upload",
-            data
-          );
+      if (!Object.keys(data).length === 0) {
+        list = await Promise.all(
+          Object.values(files).map(async (file) => {
+            const data = new FormData();
+            data.append("file", file);
+            data.append("upload_preset", "upload");
+            const uploadRes = await axios.post(
+              "https://api.cloudinary.com/v1_1/dzttobvqm/image/upload",
+              data
+            );
 
-          const { url } = uploadRes.data;
-          return url;
-        })
-      );
+            const { url } = uploadRes.data;
+            return url;
+          })
+        );
+      }
 
-      const newhotel = {
+      const updatehotel = {
         ...info,
         rooms,
         photos: list,
       };
 
-      await axios.post("/hotels", newhotel);
+      await axios.put(`/hotels/${pathId}`, updatehotel);
       navigate("/hotels");
     } catch (err) {
       toast.error("something is wrong", {
@@ -70,7 +92,7 @@ const NewHotel = () => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>Create New Hotel</h1>
+          <h1>{title}</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -96,13 +118,14 @@ const NewHotel = () => {
                 />
               </div>
 
-              {hotelInputs.map((input) => (
+              {hotel && hotelInputs.map((input) => (
                 <div className="formInput" key={input.id}>
                   <label>{input.label}</label>
                   <input
                     id={input.id}
                     onChange={handleChange}
                     type={input.type}
+                    defaultValue={hotel[input.id]}
                   />
                 </div>
               ))}
@@ -118,15 +141,15 @@ const NewHotel = () => {
                 <select id="rooms" multiple onChange={handleSelect}>
                   {loading
                     ? "loading"
-                    : data &&
-                      data.map((room) => (
+                    : places &&
+                      places.map((room) => (
                         <option key={room._id} value={room._id}>
                           {room.title}
                         </option>
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Create</button>
+              <button onClick={handleClick}>Update</button>
             </form>
           </div>
         </div>
@@ -136,4 +159,4 @@ const NewHotel = () => {
   );
 };
 
-export default NewHotel;
+export default EditHotel;
