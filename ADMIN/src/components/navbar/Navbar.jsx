@@ -7,7 +7,6 @@ import { AuthContext } from "../../context/AuthContext";
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
   const { dispatch: dis, user } = useContext(AuthContext);
-  console.log(user);
 
   const handleClick = async (e) => {
     e.preventDefault();

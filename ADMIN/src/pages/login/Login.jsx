@@ -2,8 +2,7 @@ import axios from "axios";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-// import { AuthContext } from "../../context/AuthContext";
-import "./login.scss";
+import "./login.css";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -42,6 +41,9 @@ const Login = () => {
   return (
     <div className="login">
       <div className="lContainer">
+      <img className="login__image" src="hotel.jpg" alt="" />
+        <p className="login__title">Log in to your account</p>
+        <div className="login__inputs">
         <input
           type="text"
           placeholder="username"
@@ -60,6 +62,7 @@ const Login = () => {
           Login
         </button>
         {error && <span>{error.message}</span>}
+        </div>
       </div>
     </div>
   );

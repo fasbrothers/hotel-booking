@@ -21,8 +21,10 @@ const Navbar = () => {
         </Link>
         {user ? (
           <div className="navItems">
-            <div>{user.username}</div>
-            <button onClick={handleClick}>Logout</button>
+            <p>{user.username}</p>
+            <button className="navButton" onClick={handleClick}>
+              Logout
+            </button>
           </div>
         ) : (
           <div className="navItems">

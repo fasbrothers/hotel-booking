@@ -1,5 +1,4 @@
-import "../newHotel/newHotel.scss";
-
+import "../new/new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useEffect, useState } from "react";
@@ -25,12 +24,11 @@ const EditHotel = ({ title }) => {
   const [hotel, setHotel] = useState([]);
   const [info, setInfo] = useState(hotel);
 
-  const { places, loading, error } = useFetch("/rooms");
+  const { places, loading, error } = useFetch(`/hotels/room/${pathId}`);
 
   useEffect(() => {
     setList(data);
     const info = data.find((info) => info._id === pathId);
-    console.log(info);
     setHotel(info);
     // clean up
     return () => {
@@ -49,7 +47,6 @@ const EditHotel = ({ title }) => {
     );
     setRooms(value);
   };
-
 
   const handleClick = async (e) => {
     e.preventDefault();
@@ -118,17 +115,18 @@ const EditHotel = ({ title }) => {
                 />
               </div>
 
-              {hotel && hotelInputs.map((input) => (
-                <div className="formInput" key={input.id}>
-                  <label>{input.label}</label>
-                  <input
-                    id={input.id}
-                    onChange={handleChange}
-                    type={input.type}
-                    defaultValue={hotel[input.id]}
-                  />
-                </div>
-              ))}
+              {hotel &&
+                hotelInputs.map((input) => (
+                  <div className="formInput" key={input.id}>
+                    <label>{input.label}</label>
+                    <input
+                      id={input.id}
+                      onChange={handleChange}
+                      type={input.type}
+                      defaultValue={hotel[input.id]}
+                    />
+                  </div>
+                ))}
               <div className="formInput">
                 <label>Featured</label>
                 <select id="featured" onChange={handleChange}>

@@ -4,7 +4,6 @@ import {
   faPerson,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./header.css";
 import { DateRange } from "react-date-range";
 import { useContext, useState } from "react";
 import "react-date-range/dist/styles.css";
@@ -12,6 +11,9 @@ import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./header.css";
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -45,7 +47,16 @@ const Header = ({ type }) => {
 
   const handleSearch = () => {
     if (destination === "") {
-      alert("Please enter a destination");
+      toast.error("Please, enter a location", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return;
     }
     if (dates[0].startDate === dates[0].endDate) {
@@ -64,7 +75,10 @@ const Header = ({ type }) => {
           type === "list" ? "headerContainer listMode" : "headerContainer"
         }
       >
-        <div className="headerList"></div>
+        <div className="headerList">
+          <h4>Book your stay with Travel</h4>
+          <p>101 rooms around the Uzbekistan are waiting to you</p>
+        </div>
         {type !== "list" && (
           <>
             <div className="headerSearch">
@@ -175,6 +189,7 @@ const Header = ({ type }) => {
                 <button className="headerBtn" onClick={handleSearch}>
                   Search
                 </button>
+                <ToastContainer />
               </div>
             </div>
           </>

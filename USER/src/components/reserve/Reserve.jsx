@@ -1,6 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
-
 import "./reserve.css";
 import useFetch from "../../hooks/useFetch";
 import { useContext, useState } from "react";
@@ -61,6 +60,7 @@ const Reserve = ({ setOpen, hotelId }) => {
           return res.data;
         })
       );
+
       setOpen(false);
       navigate("/");
     } catch (err) {}
@@ -77,12 +77,11 @@ const Reserve = ({ setOpen, hotelId }) => {
         {data.map((item) => (
           <div className="rItem" key={item._id}>
             <div className="rItemInfo">
-              <div className="rTitle">{item.title}</div>
-              <div className="rDesc">{item.desc}</div>
+              <div className="rTitle">{item.title} Room</div>
               <div className="rMax">
                 Maximum people: <b>{item.maxPeople}</b>
               </div>
-              <div className="rPrice">{item.price}</div>
+              <div className="rPrice">${item.price}</div>
             </div>
             <div className="rSelectRooms">
               {item.roomNumbers.map((roomNumber) => (

@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 
 .rContainer {
@@ -72,11 +73,11 @@
 .rButton {
   border: none;
   padding: 10px 20px;
-  background-color: black;
+  background-color: #1d64ec;
   color: white;
   font-weight: bold;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 20px;
   width: 100%;
   margin-top: 20px;
 }

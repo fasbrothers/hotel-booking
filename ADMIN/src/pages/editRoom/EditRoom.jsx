@@ -1,4 +1,4 @@
-import "../newRoom/newRoom.scss";
+import "../new/new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { roomInputs } from "../../formSource";

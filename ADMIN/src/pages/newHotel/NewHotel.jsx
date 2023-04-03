@@ -1,4 +1,4 @@
-import "./newHotel.scss";
+import "../new/new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import { useState } from "react";
@@ -30,7 +30,6 @@ const NewHotel = () => {
     setRooms(value);
   };
 
-  console.log(files);
 
   const handleClick = async (e) => {
     e.preventDefault();

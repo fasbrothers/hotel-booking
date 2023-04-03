@@ -7,6 +7,7 @@ import { DateRange } from "react-date-range";
 import SearchItem from "../../components/searchItem/SearchItem";
 import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
+import Footer from "../../components/footer/Footer";
 
 const List = () => {
   const location = useLocation();
@@ -22,7 +23,6 @@ const List = () => {
   const { data, loading, error, reFetch } = useFetch(
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
-
   const handleClick = () => {
     reFetch();
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
@@ -39,135 +39,151 @@ const List = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="listContainer">
-        <div className="listWrapper">
-          <div className="listSearch">
-            <h1 className="lsTitle">Search</h1>
-            <div className="lsItem">
-              <label>Destination</label>
-              <input
-                placeholder={destination}
-                type="text"
-                onChange={(e) => setDestination(e.target.value.toUpperCase())}
-              />
-            </div>
-            <div className="lsItem">
-              <label>Check-in Date</label>
-              <span onClick={() => setOpenDate(!openDate)}>{`${format(
-                dates[0].startDate,
-                "MM/dd/yyyy"
-              )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
-              {openDate && (
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setDates([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={dates}
-                  className="date"
-                  minDate={new Date()}
+    <>
+      <div className="container">
+        <Navbar />
+        <div className="listContainer">
+          <div className="listWrapper">
+            <div className="listSearch">
+              <p className="lsTitle">Your search</p>
+              <div className="lsItem">
+                <label>Destination</label>
+                <input
+                  placeholder={destination}
+                  type="text"
+                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
                 />
-              )}
-            </div>
-            <div className="lsItem">
-              <label>Options</label>
-              <div className="lsOptions">
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Min price <small>per night</small>
-                  </span>
-                  <input
-                    type="number"
-                    onChange={(e) => setMin(e.target.value)}
-                    className="lsOptionInput"
+              </div>
+              <div className="lsItem">
+                <label>Check-in Date</label>
+                <span onClick={() => setOpenDate(!openDate)}>{`${format(
+                  dates[0].startDate,
+                  "MM/dd/yyyy"
+                )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
+                {openDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setDates([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    ranges={dates}
+                    className="date"
+                    minDate={new Date()}
                   />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="lsOptionText">
-                    Max price <small>per night</small>
-                  </span>
-                  <input
-                    type="number"
-                    onChange={(e) => setMax(e.target.value)}
-                    className="lsOptionInput"
-                  />
-                </div>
-                <div className="lsOptionItem">
-                  <span className="optionText">Adult</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={options.adult <= 1}
-                      className="optionCounterButton"
-                      onClick={() => handleOption("adult", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionCounterNumber">{options.adult}</span>
-                    <button
-                      className="optionCounterButton"
-                      onClick={() => handleOption("adult", "i")}
-                    >
-                      +
-                    </button>
+                )}
+              </div>
+              <div className="lsItem">
+                <label>Options</label>
+                <div className="lsOptions">
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">
+                      Min price <small>per night</small>
+                    </span>
+                    <input
+                      type="number"
+                      onChange={(e) => setMin(e.target.value)}
+                      className="lsOptionInput"
+                    />
                   </div>
-                </div>
-                <div className="lsOptionItem">
-                  <span className="optionText">Child</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={options.child <= 0}
-                      className="optionCounterButton"
-                      onClick={() => handleOption("child", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionCounterNumber">{options.child}</span>
-                    <button
-                      className="optionCounterButton"
-                      onClick={() => handleOption("child", "i")}
-                    >
-                      +
-                    </button>
+                  <div className="lsOptionItem">
+                    <span className="lsOptionText">
+                      Max price <small>per night</small>
+                    </span>
+                    <input
+                      type="number"
+                      onChange={(e) => setMax(e.target.value)}
+                      className="lsOptionInput"
+                    />
                   </div>
-                </div>
-                <div className="lsOptionItem">
-                  <span className="optionText">Room</span>
-                  <div className="optionCounter">
-                    <button
-                      disabled={options.room <= 1}
-                      className="optionCounterButton"
-                      onClick={() => handleOption("room", "d")}
-                    >
-                      -
-                    </button>
-                    <span className="optionCounterNumber">{options.room}</span>
-                    <button
-                      className="optionCounterButton"
-                      onClick={() => handleOption("room", "i")}
-                    >
-                      +
-                    </button>
+                  <div className="lsOptionItem">
+                    <span className="optionText">Adult</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={options.adult <= 1}
+                        className="optionCounterButton"
+                        onClick={() => handleOption("adult", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionCounterNumber">
+                        {options.adult}
+                      </span>
+                      <button
+                        className="optionCounterButton"
+                        onClick={() => handleOption("adult", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="lsOptionItem">
+                    <span className="optionText">Child</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={options.child <= 0}
+                        className="optionCounterButton"
+                        onClick={() => handleOption("child", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionCounterNumber">
+                        {options.child}
+                      </span>
+                      <button
+                        className="optionCounterButton"
+                        onClick={() => handleOption("child", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="lsOptionItem">
+                    <span className="optionText">Room</span>
+                    <div className="optionCounter">
+                      <button
+                        disabled={options.room <= 1}
+                        className="optionCounterButton"
+                        onClick={() => handleOption("room", "d")}
+                      >
+                        -
+                      </button>
+                      <span className="optionCounterNumber">
+                        {options.room}
+                      </span>
+                      <button
+                        className="optionCounterButton"
+                        onClick={() => handleOption("room", "i")}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
+              <button onClick={handleClick}>Search</button>
             </div>
-            <button onClick={handleClick}>Search</button>
-          </div>
-          <div className="listResult">
-            {loading ? (
-              "loading"
-            ) : (
-              <>
-                {data.map((item) => (
-                  <SearchItem item={item} key={item._id} options= {options} dates={dates} />
-                ))}
-              </>
-            )}
+            <div className="listResult">
+              {loading ? (
+                "loading"
+              ) : (
+                <div>
+                  <p className="listResult__hotels">{data.length} search results</p>
+                  {data.map((item) => (
+                    <SearchItem
+                      id={item._id}
+                      item={item}
+                      key={item._id}
+                      options={options}
+                      dates={dates}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

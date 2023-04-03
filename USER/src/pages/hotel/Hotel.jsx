@@ -2,23 +2,20 @@ import "./hotel.css";
 import Navbar from "../../components/navbar/Navbar";
 import Header from "../../components/header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCircleArrowLeft,
-  faCircleArrowRight,
-  faCircleXmark,
-  faLocationDot,
-} from "@fortawesome/free-solid-svg-icons";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Autoplay, Mousewheel } from "swiper";
+import "swiper/css";
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import Reserve from "../../components/reserve/Reserve";
+import Footer from "../../components/footer/Footer";
 
 const Hotel = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const [slideNumber, setSlideNumber] = useState(0);
-  const [open, setOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [dates, setDates] = useState(location.state.dates);
   const [options, setOptions] = useState(location.state.options);
@@ -35,23 +32,6 @@ const Hotel = () => {
 
   const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
-  const handleOpen = (i) => {
-    setSlideNumber(i);
-    setOpen(true);
-  };
-
-  const handleMove = (direction) => {
-    let newSlideNumber;
-
-    if (direction === "l") {
-      newSlideNumber = slideNumber === 0 ? 4 : slideNumber - 1;
-    } else {
-      newSlideNumber = slideNumber === 4 ? 0 : slideNumber + 1;
-    }
-
-    setSlideNumber(newSlideNumber);
-  };
-
   const handleClick = () => {
     if (user) {
       setOpenModal(true);
@@ -60,82 +40,79 @@ const Hotel = () => {
     }
   };
   return (
-    <div>
-      <Navbar />
-      <Header type="list" />
-      {loading ? (
-        "loading"
-      ) : (
-        <div className="hotelContainer">
-          {open && (
-            <div className="slider">
-              <FontAwesomeIcon
-                icon={faCircleXmark}
-                className="close"
-                onClick={() => setOpen(false)}
-              />
-              <FontAwesomeIcon
-                icon={faCircleArrowLeft}
-                className="arrow"
-                onClick={() => handleMove("l")}
-              />
-              <div className="sliderWrapper">
-                <img
-                  src={data.photos[slideNumber]}
-                  alt=""
-                  className="sliderImg"
-                />
+    <>
+      <div className="container">
+        <Navbar />
+        <Header type="list" />
+        {loading ? (
+          "loading"
+        ) : (
+          <div className="hotelContainer">
+            <div className="hotelWrapper">
+              <div className="hotelImages">
+                <Swiper
+                  modules={[Navigation, Autoplay, Mousewheel]}
+                  direction={"vertical"}
+                  breakpoints={{
+                    0: {
+                      mousewheel: false,
+                    },
+                    1025: {
+                      direction: "vertical",
+                      navigation: false,
+                    },
+                  }}
+                  mousewheel={{
+                    releaseOnEdges: true,
+                  }}
+                  slidesPerView={1}
+                  autoplay={{ delay: 2000 }}
+                  navigation
+                  scrollbar={{ draggable: true }}
+                >
+                  {data.photos?.map((photo, i) => (
+                    <SwiperSlide key={i}>
+                      <div className="hotelImgWrapper" key={i}>
+                        <img src={photo} alt="" className="hotelImg" />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
-              <FontAwesomeIcon
-                icon={faCircleArrowRight}
-                className="arrow"
-                onClick={() => handleMove("r")}
-              />
-            </div>
-          )}
-          <div className="hotelWrapper">
-            <div className="hotelFlex">
-              <div>
-                <h1 className="hotelTitle">{data.name}</h1>
-                <div className="hotelAddress">
-                  <FontAwesomeIcon icon={faLocationDot} />
-                  <span>{data.address}</span>
+              <div className="hotelDescription">
+                <div className="hotelFlex">
+                  <div>
+                    <p className="hotelTitle">{data.name}</p>
+                    <div className="hotelAddress">
+                      <FontAwesomeIcon icon={faLocationDot} />
+                      <span>{data.address}</span>
+                    </div>
+                    <p className="hotelDistance">
+                      Excellent location – {data.distance}m from center
+                    </p>
+                  </div>
+                  <div className="hotelDetailsPrice">
+                    <p>
+                      <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
+                      nights)
+                    </p>
+                    <button onClick={handleClick}>Reserve Now!</button>
+                  </div>
                 </div>
-                <span className="hotelDistance">
-                  Excellent location – {data.distance}m from center
-                </span>
-              </div>
-              <div className="hotelDetailsPrice">
-                <h2>
-                  <b>${days * data.cheapestPrice * options.room}</b> ({days}{" "}
-                  nights)
-                </h2>
-                <button onClick={handleClick}>Reserve or Book Now!</button>
-              </div>
-            </div>
-            <div className="hotelImages">
-              {data.photos?.map((photo, i) => (
-                <div className="hotelImgWrapper" key={i}>
-                  <img
-                    onClick={() => handleOpen(i)}
-                    src={photo}
-                    alt=""
-                    className="hotelImg"
-                  />
+
+                <div className="hotelDetails">
+                  <div className="hotelDetailsTexts">
+                    <p className="hotelDesc">{data.desc}</p>
+                  </div>
                 </div>
-              ))}
-            </div>
-            <div className="hotelDetails">
-              <div className="hotelDetailsTexts">
-                <h1 className="hotelTitle">{data.title}</h1>
-                <p className="hotelDesc">{data.desc}</p>
               </div>
             </div>
           </div>
-        </div>
-      )}
-      {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
-    </div>
+        )}
+        {openModal && <Reserve setOpen={setOpenModal} hotelId={id} />}
+      </div>
+      <Footer />
+    </>
   );
 };
 

@@ -2,11 +2,11 @@
   height: 50px;
   display: flex;
   justify-content: center;
+  margin-top: 20px;
 }
 
 .navContainer{
   width: 100%;
-  max-width: 1024px;
   color: black;
   display: flex;
   align-items: center;
@@ -14,13 +14,21 @@
 }
 
 .logo{
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 18px;
 }
 
 .navButton{
   margin-left: 20px;
   border: none;
-  padding: 5px 10px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  color: #1d64ec;
+  border: 1px solid #1d64ec;
   cursor: pointer;
-  color: black;
+  background: transparent;
+}
+.navItems{
+  display: flex;
+  align-items: center;
 }

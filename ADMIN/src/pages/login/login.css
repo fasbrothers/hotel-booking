@@ -30,6 +30,7 @@
   border-radius: 50px;
   outline: none;
   color: #fff;
+  cursor: pointer;
   border: 1px solid #4361ee;
 }
 
@@ -49,12 +50,8 @@
   align-items: center;
   margin-bottom: 1rem;
 }
-#username,
-#password,
-#email,
-#country,
-#city,
-#phone {
+.login #username,
+.login #password {
   width: 100%;
   margin: 0.6rem;
   padding: 0.6rem 1.2rem;
@@ -67,15 +64,7 @@
 .login__title {
   text-align: center;
 }
-.register {
-  width: 27%;
-  margin: 40px auto;
-}
 
-.register .login__image {
-  display: flex;
-  margin: 0 auto;
-}
 /* media */
 @media screen and (max-width: 768px) {
   .lContainer {
@@ -84,24 +73,7 @@
   }
   .lButton,
   #username,
-  #password,
-  #email,
-  #country,
-  #city,
-  #phone {
+  #password {
     width: auto;
-  }
-  .register {
-    width: 60%;
-    margin: 20px auto;
-  }
-  .register .login__image {
-    width: 100%;
-  }
-}
-@media (min-width: 769px) and (max-width: 1300px) {
-  .register {
-    width: 50%;
-    margin: 20px auto;
   }
 }

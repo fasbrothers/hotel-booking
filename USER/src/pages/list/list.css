@@ -1,12 +1,9 @@
 .listContainer {
-  display: flex;
-  justify-content: center;
   margin-top: 20px;
 }
 
 .listWrapper {
   width: 100%;
-  max-width: 1024px;
   display: flex;
   gap: 20px;
 }
@@ -14,35 +11,36 @@
 .listSearch {
   flex: 1;
   padding: 20px 30px;
-  border-radius: 30px;
-  border: 1px solid #ccc;
   position: sticky;
   top: 10px;
   height: max-content;
+  background-color: #f8f8f8;
 }
 
-.lsTitle{
-  font-size: 20px;
+.lsTitle {
+  font-size: 18px;
   color: black;
   margin-bottom: 10px;
 }
 
-.lsItem{
+.lsItem {
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-bottom: 10px;
 }
 
-.lsItem>label{
-  font-size: 16px;
+.lsItem > label {
+  font-size: 14px;
 }
 
-.lsItem>input{
+.lsItem > input {
   height: 30px;
   padding: 5px;
+  font-size: 14px;
 }
-.lsItem>span{
+.lsItem > span {
+  font-size: 14px;
   height: 30px;
   padding: 5px;
   background-color: white;
@@ -51,11 +49,11 @@
   cursor: pointer;
 }
 
-.lsOptions{
+.lsOptions {
   padding: 10px;
 }
 
-.lsOptionItem{
+.lsOptionItem {
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -63,19 +61,42 @@
   font-size: 14px;
 }
 
-.lsOptionInput{
+.lsOptionInput {
   width: 50px;
 }
 
-.listSearch>button{
+.listSearch > button {
   padding: 10px;
-  background-color: black;
+  background-color: rgb(29, 100, 236);
   color: white;
   border: none;
-  font-weight: 500;
   cursor: pointer;
+  width: 100%;
+  border-radius: 30px;
 }
 
 .listResult {
   flex: 3;
+}
+.lsItem .date {
+  top: 220px;
+}
+.optionCounterButton{
+  border: 1px solid rgba(0, 0, 0, 0.452);
+  color: black;
+}
+.listResult__hotels{
+  margin-bottom: 20px;
+}
+/* media query */
+@media screen and (max-width: 768px) {
+  .listWrapper {
+    flex-direction: column;
+  }
+  .listSearch {
+    position: static;
+  }
+  .listResult{
+    margin-bottom: 40px;
+  }
 }

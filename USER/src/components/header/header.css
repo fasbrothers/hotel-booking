@@ -6,14 +6,28 @@
 
 .headerContainer {
   width: 100%;
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 20px 0;
 }
 
-
 .headerList {
+  background-image: url("../../../public/banner.jpg");
+  height: 301px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  border-radius: 30px;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.headerList h4 {
+  font-size: 40px;
+}
+.headerList p {
+  font-size: 20px;
 }
 
 .headerListItem {
@@ -33,25 +47,26 @@
 }
 
 .headerBtn {
-  background-color: #0071c2;
+  background-color: rgb(29, 100, 236);
   color: white;
   font-weight: 500;
   border: none;
   padding: 10px;
   cursor: pointer;
+  border-radius: 20px;
 }
 
 .headerSearch {
   height: 40px;
+  box-shadow: 0px 0px 10px -5px rgba(0, 0, 0, 0.4);
   background-color: white;
-  border: 3px solid #0071c2;
   display: flex;
   align-items: center;
   justify-content: space-around;
   padding: 10px 0px;
   border-radius: 45px;
-  width: 90%;
-  margin: 0px auto;
+  width: 80%;
+  margin: -30px auto 0 auto;
 }
 
 .headerIcon {
@@ -69,9 +84,8 @@
   outline: none;
   font-size: 16px;
 }
-.headerSearchInput::placeholder{
+.headerSearchInput::placeholder {
   color: black;
-
 }
 
 .headerSearchText {
@@ -81,14 +95,14 @@
 
 .date {
   position: absolute;
-  top: 50px;
+  top: 350px;
   z-index: 2;
 }
 
 .options {
   z-index: 2;
   position: absolute;
-  top: 50px;
+  top: 170px;
   background-color: white;
   color: black;
   border-radius: 5px;
@@ -122,4 +136,32 @@
 
 .optionCounterButton:disabled {
   cursor: not-allowed;
+}
+
+/* media */
+@media (max-width: 768px) {
+  .headerList {
+    height: 250px;
+  }
+  .headerList h4 {
+    font-size: 22px;
+  }
+  .headerList p {
+    font-size: 14px;
+    width: 80%;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .headerSearch {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+    font-size: 14px;
+  }
+  .headerSearchInput {
+    font-size: 14px;
+  }
+  .date{
+    left: 0;
+  }
 }

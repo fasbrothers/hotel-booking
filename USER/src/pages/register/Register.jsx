@@ -32,8 +32,11 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
+    <div className="register">
       <div className="lContainer">
+      <img className="login__image" src="hotel.jpg" alt="" />
+        <p className="login__title">Create an account</p>
+        <div className="login__inputs">
         <input
           type="text"
           placeholder="username"
@@ -80,6 +83,7 @@ const Login = () => {
           Register
         </button>
         {error && <span>{error.message}</span>}
+        </div>
       </div>
     </div>
   );
