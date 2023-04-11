@@ -1,11 +1,11 @@
-.navbar{
+.navbar {
   height: 50px;
   display: flex;
   justify-content: center;
   margin-top: 20px;
 }
 
-.navContainer{
+.navContainer {
   width: 100%;
   color: black;
   display: flex;
@@ -13,12 +13,12 @@
   justify-content: space-between;
 }
 
-.logo{
+.logo {
   font-weight: 400;
   font-size: 18px;
 }
 
-.navButton{
+.navButton {
   margin-left: 20px;
   border: none;
   padding: 8px 15px;
@@ -28,7 +28,14 @@
   cursor: pointer;
   background: transparent;
 }
-.navItems{
+.navItems {
   display: flex;
   align-items: center;
+}
+.navUser {
+  cursor: pointer;
+}
+.navItems a {
+  text-decoration: none;
+  color: black;
 }

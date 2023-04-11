@@ -137,7 +137,22 @@
 .optionCounterButton:disabled {
   cursor: not-allowed;
 }
-
+.filterCity {
+  display: flex;
+  width: 100%;
+  max-width: 300px;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 40px;
+  z-index: 999;
+  padding: 15px;
+}
+.headerFilter {
+  position: relative;
+}
 /* media */
 @media (max-width: 768px) {
   .headerList {
@@ -161,7 +176,7 @@
   .headerSearchInput {
     font-size: 14px;
   }
-  .date{
+  .date {
     left: 0;
   }
 }

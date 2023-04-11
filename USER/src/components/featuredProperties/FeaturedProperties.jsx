@@ -1,7 +1,7 @@
 import useFetch from "../../hooks/useFetch";
 import "./featuredProperties.css";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation,  Autoplay } from "swiper";
+import { Navigation, Autoplay } from "swiper";
 import "swiper/css";
 
 const FeaturedProperties = () => {
@@ -14,7 +14,7 @@ const FeaturedProperties = () => {
       ) : (
         <>
           <Swiper
-            modules={[Navigation,Autoplay]}
+            modules={[Navigation, Autoplay]}
             breakpoints={{
               0: {
                 slidesPerView: 1,
@@ -42,8 +42,8 @@ const FeaturedProperties = () => {
             navigation
             scrollbar={{ draggable: true }}
           >
-            {data.map((item) => (
-              <SwiperSlide key={item.id}>
+            {data.map((item, i) => (
+              <SwiperSlide key={i}>
                 <div className="fpItem">
                   <img src={item.photos[0]} alt="" className="fpImg" />
                   <span className="fpName">{item.name}</span>

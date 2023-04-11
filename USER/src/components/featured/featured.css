@@ -11,6 +11,7 @@
   color: black;
   border-radius: 10px;
   width: 100%;
+  cursor: pointer;
 }
 
 .featuredImg {
@@ -28,6 +29,9 @@
   padding: 4px 8px;
   border-radius: 15px;
 }
+.featuredItem > * {
+  pointer-events: none;
+}
 
 /* media */
 @media (max-width: 768px) {
@@ -43,7 +47,7 @@
     height: 250px;
     width: 48%;
   }
-  .featured{
-    flex-wrap:wrap;
+  .featured {
+    flex-wrap: wrap;
   }
 }

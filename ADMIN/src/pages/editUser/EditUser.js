@@ -42,21 +42,15 @@ const EditUser = ({ inputs, title }) => {
     data.append("file", file);
     data.append("upload_preset", "upload");
     console.log(Object.keys(data).length === 0);
-    let url = user.img;
     try {
-      if (!Object.keys(data).length === 0) {
-        const uploadRes = await axios.post(
-          "https://api.cloudinary.com/v1_1/dzttobvqm/image/upload",
-          data.length === 0 ? user.img : data
-        );
-
-        url = uploadRes.data.url;
-        console.log(url);
-      }
+      const uploadRes = await axios.post(
+        "https://api.cloudinary.com/v1_1/dzttobvqm/image/upload",
+        data
+      );
 
       const updateUser = {
         ...info,
-        img: url,
+        img: uploadRes.data.url,
       };
 
       await axios.put(`/users/${pathId}`, updateUser);

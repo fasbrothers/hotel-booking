@@ -21,7 +21,9 @@ const Navbar = () => {
         </Link>
         {user ? (
           <div className="navItems">
-            <p>{user.username}</p>
+            <Link to="/profile">
+              <p className="navUser">{user.username}</p>
+            </Link>
             <button className="navButton" onClick={handleClick}>
               Logout
             </button>

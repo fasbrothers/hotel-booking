@@ -14,7 +14,7 @@ dotenv.config();
 const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
-    console.log("Connected to mongoDB.");
+    console.log("Connected to mongoDB");
   } catch (error) {
     throw error;
   }
@@ -25,8 +25,8 @@ mongoose.connection.on("disconnected", () => {
 });
 
 //middlewares
-app.use(cors())
-app.use(cookieParser())
+app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api/auth", authRoute);

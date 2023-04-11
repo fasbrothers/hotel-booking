@@ -17,14 +17,17 @@ const List = () => {
   const [options, setOptions] = useState(location.state.options);
   const [min, setMin] = useState(undefined);
   const [max, setMax] = useState(undefined);
+  const [filterCity, setFilterCity] = useState([]);
   const { dispatch } = useContext(SearchContext);
   const navigate = useNavigate();
 
   const { data, loading, error, reFetch } = useFetch(
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
+  const { data: city } = useFetch("/hotels");
   const handleClick = () => {
     reFetch();
+    setFilterCity([]);
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
   };
@@ -37,6 +40,29 @@ const List = () => {
       };
     });
   };
+  const fetchData = (value) => {
+    const filteredData = city.filter((item) => {
+      return item.city.includes(value);
+    });
+    // filter unique city
+    const unique = filteredData.filter((item, index, self) => {
+      return (
+        self.findIndex((t) => {
+          return t.city === item.city;
+        }) === index
+      );
+    });
+
+    setFilterCity(unique);
+  };
+  const handleChange = (value) => {
+    if (value === "") {
+      setFilterCity([]);
+    } else {
+      setDestination(value);
+      fetchData(value);
+    }
+  };
 
   return (
     <>
@@ -46,13 +72,20 @@ const List = () => {
           <div className="listWrapper">
             <div className="listSearch">
               <p className="lsTitle">Your search</p>
-              <div className="lsItem">
+              <div className="lsItem lsDestination">
                 <label>Destination</label>
                 <input
                   placeholder={destination}
                   type="text"
-                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
+                  onChange={(e) => handleChange(e.target.value.toUpperCase())}
                 />
+                {filterCity.length > 0 && (
+                  <div className="filterCity">
+                    {filterCity.map((item, i) => (
+                      <div className="filterCityItem" key={i}>{item.city}</div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="lsItem">
                 <label>Check-in Date</label>
@@ -166,7 +199,9 @@ const List = () => {
                 "loading"
               ) : (
                 <div>
-                  <p className="listResult__hotels">{data.length} search results</p>
+                  <p className="listResult__hotels">
+                    {data.length} search results
+                  </p>
                   {data.map((item) => (
                     <SearchItem
                       id={item._id}

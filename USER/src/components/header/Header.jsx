@@ -14,6 +14,7 @@ import { SearchContext } from "../../context/SearchContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./header.css";
+import useFetch from "../../hooks/useFetch";
 
 const Header = ({ type }) => {
   const [destination, setDestination] = useState("");
@@ -31,6 +32,9 @@ const Header = ({ type }) => {
     adult: 1,
     room: 1,
   });
+  const [filterCity, setFilterCity] = useState([]);
+
+  const { data } = useFetch("/hotels");
 
   const navigate = useNavigate();
 
@@ -44,11 +48,35 @@ const Header = ({ type }) => {
   };
 
   const { dispatch } = useContext(SearchContext);
+  const fetchData = (value) => {
+    const filteredData = data.filter((item) => {
+      return item.city.includes(value);
+    });
+    // filter unique city
+    const unique = filteredData.filter((item, index, self) => {
+      return (
+        self.findIndex((t) => {
+          return t.city === item.city;
+        }) === index
+      );
+    });
+
+    setFilterCity(unique);
+  };
+
+  const handleChange = (value) => {
+    if (value === "") {
+      setFilterCity([]);
+    } else {
+      setDestination(value);
+      fetchData(value);
+    }
+  };
 
   const handleSearch = () => {
     if (destination === "") {
       toast.error("Please, enter a location", {
-        position: "top-left",
+        position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
@@ -63,7 +91,6 @@ const Header = ({ type }) => {
       alert("Please enter a valid date range");
       return;
     }
-
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
   };
@@ -82,14 +109,25 @@ const Header = ({ type }) => {
         {type !== "list" && (
           <>
             <div className="headerSearch">
-              <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input
-                  type="text"
-                  placeholder="Location"
-                  className="headerSearchInput"
-                  onChange={(e) => setDestination(e.target.value.toUpperCase())}
-                />
+              <div className="headerSearchItem headerFilter">
+                <div>
+                  <FontAwesomeIcon icon={faBed} className="headerIcon" />
+                  <input
+                    type="text"
+                    placeholder="Location"
+                    className="headerSearchInput"
+                    onChange={(e) => handleChange(e.target.value.toUpperCase())}
+                  />
+                </div>
+                {filterCity.length > 0 && (
+                  <div className="filterCity">
+                    {filterCity.map((item, i) => (
+                      <div className="filterCityItem" key={i}>
+                        {item.city}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
