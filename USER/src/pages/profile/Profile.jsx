@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../../components/footer/Footer";
 import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import "./profile.css";
-import Header from "../../components/header/Header";
 
 function Profile() {
   const [user, setUser] = useState({});

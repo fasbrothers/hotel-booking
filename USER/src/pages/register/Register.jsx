@@ -20,10 +20,12 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  // handle credentials
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  // create a user
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });

@@ -9,19 +9,16 @@ const User = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[1];
   const { data, loading, error } = useFetch(`/${path}`);
+  const [list, setList] = useState(data);
+  const [info, setInfo] = useState([]);
 
   // find the info with the id
   const pathId = location.pathname.split("/")[2];
 
-  const [list, setList] = useState(data);
-  const [info, setInfo] = useState([]);
-
   useEffect(() => {
     setList(data);
     const info = data.find((info) => info._id === pathId);
-    console.log(info);
     setInfo(info);
-    console.log(data);
     // clean up
     return () => {
       setInfo([]);
@@ -41,7 +38,6 @@ const User = () => {
               </Link>
               <h1 className="title">User information</h1>
               <div className="item">
-                <img src={info.img} alt="" className="itemImg" />
                 <div className="details">
                   <h1 className="itemTitle">{info.username}</h1>
                   <div className="detailItem">

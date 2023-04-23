@@ -6,6 +6,8 @@ import { roomInputs } from "../../formSource";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const NewRoom = () => {
   const [info, setInfo] = useState({});
@@ -19,18 +21,28 @@ const NewRoom = () => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  // add new room
   const handleClick = async (e) => {
     e.preventDefault();
-    const roomNumbers = rooms.split(",").map((room) => ({ number: room }));
+    const roomNumbers =
+      rooms.length > 0 && rooms.split(",").map((room) => ({ number: room }));
     try {
       await axios.post(`/rooms/${hotelId}`, { ...info, roomNumbers });
       navigate("/rooms");
     } catch (err) {
-      console.log(err);
+      toast.error("Please, fill all the inputs", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
-  console.log(info)
   return (
     <div className="new">
       <Sidebar />
@@ -54,14 +66,13 @@ const NewRoom = () => {
               ))}
               <div className="formInput">
                 <label>Rooms</label>
-                <textarea
-                  onChange={(e) => setRooms(e.target.value)}
-                />
+                <textarea onChange={(e) => setRooms(e.target.value)} />
               </div>
               <div className="formInput">
                 <label>Choose a hotel</label>
                 <select
                   id="hotelId"
+                  defaultValue={data[1]?._id}
                   onChange={(e) => setHotelId(e.target.value)}
                 >
                   {loading
@@ -74,7 +85,10 @@ const NewRoom = () => {
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Create</button>
+              <button className="btn__submit" onClick={handleClick}>
+                Create
+              </button>
+              <ToastContainer />
             </form>
           </div>
         </div>

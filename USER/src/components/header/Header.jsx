@@ -6,17 +6,18 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateRange } from "react-date-range";
 import { useContext, useState } from "react";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { SearchContext } from "../../context/SearchContext";
 import { ToastContainer, toast } from "react-toastify";
+import useFetch from "../../hooks/useFetch";
 import "react-toastify/dist/ReactToastify.css";
 import "./header.css";
-import useFetch from "../../hooks/useFetch";
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 
 const Header = ({ type }) => {
+
   const [destination, setDestination] = useState("");
   const [openDate, setOpenDate] = useState(false);
   const [dates, setDates] = useState([
@@ -33,11 +34,11 @@ const Header = ({ type }) => {
     room: 1,
   });
   const [filterCity, setFilterCity] = useState([]);
-
   const { data } = useFetch("/hotels");
-
   const navigate = useNavigate();
+  const { dispatch } = useContext(SearchContext);
 
+  // handle options (adult, child, room)
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -47,7 +48,7 @@ const Header = ({ type }) => {
     });
   };
 
-  const { dispatch } = useContext(SearchContext);
+  // filter city from data
   const fetchData = (value) => {
     const filteredData = data.filter((item) => {
       return item.city.includes(value);
@@ -64,6 +65,7 @@ const Header = ({ type }) => {
     setFilterCity(unique);
   };
 
+  // handle change input
   const handleChange = (value) => {
     if (value === "") {
       setFilterCity([]);
@@ -73,6 +75,7 @@ const Header = ({ type }) => {
     }
   };
 
+  // handle search button
   const handleSearch = () => {
     if (destination === "") {
       toast.error("Please, enter a location", {

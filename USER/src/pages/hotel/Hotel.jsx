@@ -1,17 +1,17 @@
-import "./hotel.css";
-import Navbar from "../../components/navbar/Navbar";
-import Header from "../../components/header/Header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay, Mousewheel } from "swiper";
-import "swiper/css";
 import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
-import useFetch from "../../hooks/useFetch";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import Navbar from "../../components/navbar/Navbar";
+import Header from "../../components/header/Header";
 import Reserve from "../../components/reserve/Reserve";
 import Footer from "../../components/footer/Footer";
+import useFetch from "../../hooks/useFetch";
+import "./hotel.css";
+import "swiper/css";
 
 const Hotel = () => {
   const location = useLocation();
@@ -32,6 +32,7 @@ const Hotel = () => {
 
   const days = dayDifference(dates[0].endDate, dates[0].startDate);
 
+  // handle reserve
   const handleClick = () => {
     if (user) {
       setOpenModal(true);
@@ -39,6 +40,7 @@ const Hotel = () => {
       navigate("/login");
     }
   };
+
   return (
     <>
       <div className="container">
@@ -99,7 +101,6 @@ const Hotel = () => {
                     <button onClick={handleClick}>Reserve Now!</button>
                   </div>
                 </div>
-
                 <div className="hotelDetails">
                   <div className="hotelDetailsTexts">
                     <p className="hotelDesc">{data.desc}</p>

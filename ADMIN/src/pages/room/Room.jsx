@@ -19,9 +19,7 @@ const Room = () => {
   useEffect(() => {
     setList(data);
     const info = data.find((info) => info._id === pathId);
-    console.log(info);
     setInfo(info);
-    console.log(data);
     // clean up
     return () => {
       setInfo([]);
@@ -41,7 +39,6 @@ const Room = () => {
               </Link>
               <h1 className="title">Room information</h1>
               <div className="item">
-                {/* <img src={info?.photos[0]} alt="" className="itemImg" />   */}
                 <div className="details">
                   <h1 className="itemTitle">{info.title}</h1>
                   <div className="detailItem">

@@ -7,6 +7,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditRoom = ({ title }) => {
   const location = useLocation();
@@ -22,7 +24,6 @@ const EditRoom = ({ title }) => {
   const [info, setInfo] = useState(room);
   const [hotelId, setHotelId] = useState(undefined);
   const [rooms, setRooms] = useState([]);
-
   const { hotels } = useFetch("/hotels");
 
   useEffect(() => {
@@ -40,13 +41,30 @@ const EditRoom = ({ title }) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleRooms = (e) => {
+    setRooms(e.target.value);
+  };
+
+  // edit the room
   const handleClick = async (e) => {
     e.preventDefault();
+    const roomNumbers =
+      rooms.length > 0 && rooms.split(",").map((room) => ({ number: room }));
+
     try {
-      await axios.put(`/rooms/${pathId}`, { ...info });
+      await axios.put(`/rooms/${pathId}`, { ...info, roomNumbers });
       navigate("/rooms");
     } catch (err) {
-      console.log(err);
+      toast.error("Please, fill all the inputs", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -75,9 +93,9 @@ const EditRoom = ({ title }) => {
                 ))}
               <div className="formInput">
                 <label>Rooms</label>
-                <textarea onChange={(e) => setRooms(e.target.value)} />
+                <textarea onChange={handleRooms} />
               </div>
-              <div className="formInput">
+              <div className="formInput form__hotel">
                 <label>Choose a hotel</label>
                 <select
                   id="hotelId"
@@ -93,7 +111,10 @@ const EditRoom = ({ title }) => {
                       ))}
                 </select>
               </div>
-              <button onClick={handleClick}>Update</button>
+              <button className="btn__submit" onClick={handleClick}>
+                Update
+              </button>
+              <ToastContainer />
             </form>
           </div>
         </div>

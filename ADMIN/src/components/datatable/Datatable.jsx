@@ -1,9 +1,9 @@
-import "./datatable.scss";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
+import "./datatable.scss";
 
 const Datatable = ({ columns }) => {
   const location = useLocation();
@@ -16,15 +16,14 @@ const Datatable = ({ columns }) => {
 
   useEffect(() => {
     setList(data);
-    console.log(data);
     setHotels(hotel);
   }, [data]);
 
+  // delete function
   const handleDelete = async (id) => {
     try {
       if (path === "rooms") {
         const hotelId = hotel[0]._id;
-        console.log(hotelId);
         await axios.delete(`/${path}/${id}/${hotelId}`);
         setList(list.filter((item) => item._id !== id));
       }

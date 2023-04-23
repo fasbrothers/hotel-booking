@@ -18,6 +18,7 @@ const Login = () => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  // login a user
   async function handleClick(e) {
     e.preventDefault();
     dispatch({ type: "LOGIN_START" });

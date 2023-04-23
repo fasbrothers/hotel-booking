@@ -1,22 +1,22 @@
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { userInputs } from "./formSource";
+import { useContext } from "react";
+import { DarkModeContext } from "./context/darkModeContext";
+import { AuthContext } from "./context/AuthContext";
+import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
 import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import List from "./pages/list/List";
 import User from "./pages/user/User";
 import New from "./pages/new/New";
 import EditUser from "./pages/editUser/EditUser";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { userInputs } from "./formSource";
-import "./style/dark.scss";
-import { useContext } from "react";
-import { DarkModeContext } from "./context/darkModeContext";
-import { AuthContext } from "./context/AuthContext";
-import { hotelColumns, roomColumns, userColumns } from "./datatablesource";
 import NewHotel from "./pages/newHotel/NewHotel";
 import NewRoom from "./pages/newRoom/NewRoom";
 import Hotel from "./pages/hotel/Hotel";
 import Room from "./pages/room/Room";
 import EditHotel from "./pages/editHotel/EditHotel";
 import EditRoom from "./pages/editRoom/EditRoom";
+import "./style/dark.scss";
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -89,7 +89,7 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":hotelId"
                 element={
                   <ProtectedRoute>
                     <Hotel />
@@ -105,7 +105,7 @@ function App() {
                 }
               />
               <Route
-                path="edit/:productId"
+                path="edit/:hotelId"
                 element={
                   <ProtectedRoute>
                     <EditHotel title="Edit a Hotel" />
@@ -123,7 +123,7 @@ function App() {
                 }
               />
               <Route
-                path=":productId"
+                path=":roomId"
                 element={
                   <ProtectedRoute>
                     <Room />
@@ -139,7 +139,7 @@ function App() {
                 }
               />
               <Route
-                path="edit/:productId"
+                path="edit/:roomId"
                 element={
                   <ProtectedRoute>
                     <EditRoom title="Edit a Room" />

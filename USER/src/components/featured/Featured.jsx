@@ -19,6 +19,7 @@ const Featured = () => {
   const { dispatch } = useContext(SearchContext);
   const navigate = useNavigate();
 
+  // handle search button
   const handleSearch = (e) => {
     e.preventDefault();
     const destination = e.target.id;
@@ -26,6 +27,7 @@ const Featured = () => {
     dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     navigate("/hotels", { state: { destination, dates, options } });
   };
+  
   return (
     <div className="featured">
       <div className="featuredItem" id="TASHKENT" onClick={handleSearch}>

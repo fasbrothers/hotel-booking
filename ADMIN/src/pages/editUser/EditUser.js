@@ -1,17 +1,18 @@
-import "../new/new.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../new/new.scss";
 
 const EditUser = ({ inputs, title }) => {
-  const [file, setFile] = useState("");
   const location = useLocation();
   const path = location.pathname.split("/")[1];
-  const { data, loading, error } = useFetch(`/${path}`);
+  const { data } = useFetch(`/${path}`);
   const navigate = useNavigate();
 
   // find the info with the id
@@ -24,7 +25,6 @@ const EditUser = ({ inputs, title }) => {
   useEffect(() => {
     setList(data);
     const info = data.find((info) => info._id === pathId);
-    console.log(info);
     setUser(info);
     // clean up
     return () => {
@@ -32,32 +32,55 @@ const EditUser = ({ inputs, title }) => {
     };
   }, [data]);
 
+  // change the state of the inputs
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  // edit the user
   const handleClick = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    data.append("file", file);
-    data.append("upload_preset", "upload");
-    console.log(Object.keys(data).length === 0);
-    try {
-      const uploadRes = await axios.post(
-        "https://api.cloudinary.com/v1_1/dzttobvqm/image/upload",
-        data
-      );
 
+    try {
       const updateUser = {
         ...info,
-        img: uploadRes.data.url,
       };
+      // check info is empty or not
+      if (
+        updateUser.username === "" ||
+        updateUser.email === "" ||
+        updateUser.password === "" ||
+        updateUser.isAdmin === "" ||
+        updateUser.phone === "" ||
+        updateUser.city === "" ||
+        updateUser.country === ""
+      ) {
+        toast.error("Please, fill all the inputs", {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
 
+        return;
+      }
       await axios.put(`/users/${pathId}`, updateUser);
-      // redirect to the users page
       navigate("/users");
     } catch (err) {
-      console.log(err);
+      toast.error("Something is wrong", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
   };
 
@@ -70,24 +93,8 @@ const EditUser = ({ inputs, title }) => {
           <h1>{title}</h1>
         </div>
         <div className="bottom">
-          <div className="left">
-            <img
-              src={file ? URL.createObjectURL(file) : `${user?.img}`}
-              alt=""
-            />
-          </div>
           <div className="right">
             <form>
-              <div className="formInput">
-                <label htmlFor="file">Add Image</label>
-                <input
-                  type="file"
-                  id="file"
-                  onChange={(e) => setFile(e.target.files[0])}
-                  style={{ display: "none" }}
-                />
-              </div>
-
               {user &&
                 inputs.map((input) => (
                   <div className="formInput" key={input.id}>
@@ -97,10 +104,21 @@ const EditUser = ({ inputs, title }) => {
                       type={input.type}
                       id={input.id}
                       defaultValue={user[input.id]}
+                      autoComplete="off"
                     />
                   </div>
                 ))}
-              <button onClick={handleClick}>Update</button>
+              <div className="formInput">
+                <label>Admin</label>
+                <select id="isAdmin" onChange={handleChange}>
+                  <option value={true}>Yes</option>
+                  <option value={false}>No</option>
+                </select>
+              </div>
+              <button className="btn__submit" onClick={handleClick}>
+                Update
+              </button>
+              <ToastContainer />
             </form>
           </div>
         </div>

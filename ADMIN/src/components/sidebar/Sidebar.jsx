@@ -1,13 +1,10 @@
-import "./sidebar.scss";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import KingBedIcon from '@mui/icons-material/KingBed';
-import HotelIcon from '@mui/icons-material/Hotel';
+import KingBedIcon from "@mui/icons-material/KingBed";
+import HotelIcon from "@mui/icons-material/Hotel";
 import { Link } from "react-router-dom";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { useContext } from "react";
+import "./sidebar.scss";
 
 const Sidebar = () => {
-  const { dispatch } = useContext(DarkModeContext);
   return (
     <div className="sidebar">
       <div className="top">

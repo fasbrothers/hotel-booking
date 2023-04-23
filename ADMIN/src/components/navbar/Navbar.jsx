@@ -6,8 +6,9 @@ import { AuthContext } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { dispatch } = useContext(DarkModeContext);
-  const { dispatch: dis, user } = useContext(AuthContext);
+  const { dispatch: dis } = useContext(AuthContext);
 
+  // logout
   const handleClick = async (e) => {
     e.preventDefault();
     dis({ type: "LOGOUT" });
@@ -24,7 +25,11 @@ const Navbar = () => {
             />
           </div>
           <div className="item" onClick={handleClick}>
-            <img src={user.img} alt="img" className="avatar" />
+            <img
+              src="https://i.ibb.co/MBtjqXQ/no-avatar.gif"
+              alt="img"
+              className="avatar"
+            />
           </div>
         </div>
       </div>

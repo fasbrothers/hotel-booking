@@ -4,10 +4,13 @@ import useFetch from "../../hooks/useFetch";
 
 const SearchItem = ({ item, dates, options, id }) => {
   const navigate = useNavigate();
-  const { data, loading, error } = useFetch(`/hotels/room/${id}`);
+  const { data } = useFetch(`/hotels/room/${id}`);
+
+  // navigate to hotel page
   const handleClick = () => {
     navigate(`/hotels/${item._id}`, { state: { dates, options } });
   };
+
   return (
     <div className="searchItem">
       <img src={item.photos[0]} alt="" className="siImg" />
@@ -25,7 +28,9 @@ const SearchItem = ({ item, dates, options, id }) => {
         </div>
         <div className="siRooms">
           <p>Available rooms</p>
-          {data && data.map((room) => <div key={room._id}>{room.title}</div>)}
+          {data.map((room) => <div key={room._id}>{room.title}</div>) ?? (
+            <div>No rooms available</div>
+          )}
         </div>
       </div>
     </div>

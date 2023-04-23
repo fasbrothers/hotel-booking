@@ -1,13 +1,13 @@
-import "./list.css";
-import Navbar from "../../components/navbar/Navbar";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
-import { format } from "date-fns";
-import { DateRange } from "react-date-range";
-import SearchItem from "../../components/searchItem/SearchItem";
-import useFetch from "../../hooks/useFetch";
 import { SearchContext } from "../../context/SearchContext";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
+import Navbar from "../../components/navbar/Navbar";
+import SearchItem from "../../components/searchItem/SearchItem";
 import Footer from "../../components/footer/Footer";
+import useFetch from "../../hooks/useFetch";
+import "./list.css";
 
 const List = () => {
   const location = useLocation();
@@ -25,6 +25,8 @@ const List = () => {
     `/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
   );
   const { data: city } = useFetch("/hotels");
+
+  // handle search
   const handleClick = () => {
     reFetch();
     setFilterCity([]);
@@ -32,6 +34,7 @@ const List = () => {
     navigate("/hotels", { state: { destination, dates, options } });
   };
 
+  // handle option
   const handleOption = (name, operation) => {
     setOptions((prev) => {
       return {
@@ -40,6 +43,8 @@ const List = () => {
       };
     });
   };
+
+  // handle filter city
   const fetchData = (value) => {
     const filteredData = city.filter((item) => {
       return item.city.includes(value);
@@ -55,6 +60,8 @@ const List = () => {
 
     setFilterCity(unique);
   };
+
+  // handle change input
   const handleChange = (value) => {
     if (value === "") {
       setFilterCity([]);

@@ -7,6 +7,7 @@ const Navbar = () => {
   const { user, dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  // logout
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch({ type: "LOGOUT" });
