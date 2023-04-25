@@ -48,7 +48,7 @@ function Profile() {
               <p>Phone: {user.phone}</p>
               <p>Email: {user.email}</p>
               <p>
-                Adress: {user.country}, {user.city}
+                Address: {user.country}, {user.city}
               </p>
             </div>
           ) : (

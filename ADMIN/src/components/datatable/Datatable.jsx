@@ -23,7 +23,7 @@ const Datatable = ({ columns }) => {
   const handleDelete = async (id) => {
     try {
       if (path === "rooms") {
-        const hotelId = hotel[0]._id;
+        const hotelId = hotel[hotel.length - 2]._id;
         await axios.delete(`/${path}/${id}/${hotelId}`);
         setList(list.filter((item) => item._id !== id));
       }

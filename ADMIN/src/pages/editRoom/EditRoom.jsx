@@ -29,7 +29,6 @@ const EditRoom = ({ title }) => {
   useEffect(() => {
     setList(data);
     const info = data.find((info) => info._id === pathId);
-    console.log(info);
     setRoom(info);
     // clean up
     return () => {

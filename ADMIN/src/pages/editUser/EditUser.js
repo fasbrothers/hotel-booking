@@ -111,8 +111,8 @@ const EditUser = ({ inputs, title }) => {
               <div className="formInput">
                 <label>Admin</label>
                 <select id="isAdmin" onChange={handleChange}>
-                  <option value={true}>Yes</option>
                   <option value={false}>No</option>
+                  <option value={true}>Yes</option>
                 </select>
               </div>
               <button className="btn__submit" onClick={handleClick}>
